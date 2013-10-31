@@ -1,15 +1,15 @@
 var stringifyJSON = function (obj) {
 
   if(typeof(obj) === 'string'){
-  	return '"' + obj + '"';
+    return '"' + obj + '"';
   }
 
   if((typeof(obj) === 'number') || (typeof(obj) === 'boolean') || (typeof(obj) === null)){
-  	return obj.toString();
+    return obj.toString();
   }
 
   if((typeof(obj) === undefined) || (typeof(obj) === 'function')){
-    return '';
+    return null;
   }
 
   if(Array.isArray(obj)){
