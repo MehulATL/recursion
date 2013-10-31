@@ -5,30 +5,30 @@ var stringifyJSON = function (obj) {
   }
 
   if((typeof(obj) === 'number') || (typeof(obj) === 'boolean') || (typeof(obj) === null)){
-  	return = String(obj);
+  	return obj.toString();
   }
 
   if((typeof(obj) === undefined) || (typeof(obj) === 'function')){
-    return = '';
+    return '';
   }
 
   if(Array.isArray(obj)){
     var resultingArray = [];
     for (var i = 0; i < obj.length; i++){
       resultingArray.push(stringifyJSON(obj[i]));
-    });
+    }
     return '[' + resultingArray.join(',') + ']';
   }
 
   if(Object.prototype.toString.call(obj) === "[object Object]"){
-    var resultingArray = [];
+    var array = [];
     for (var key in obj){
       if((typeof(obj[key]) === undefined) || (typeof(obj[key]) === 'function')){
-        return = '{}';
+        return '{}';
       }else{
-        resultingArray.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+        array.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
       }
     }
-    return '{' + resultingArray.join(',') + '}';
+    return '{' + array.join(',') + '}';
   }
 };
