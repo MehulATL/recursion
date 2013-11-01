@@ -1,16 +1,8 @@
 var stringifyJSON = function (obj) {
 
-  if(typeof(obj) === 'string'){
-    return '"' + obj + '"';
-  }
-
-  if((typeof(obj) === 'number') || (typeof(obj) === 'boolean') || (typeof(obj) === null)){
-    return obj.toString();
-  }
-
-  if((typeof(obj) === undefined) || (typeof(obj) === 'function')){
-    return null;
-  }
+  var isUndefinedOrAFunction = function(obj){
+    return typeof(obj) === 'undefined' || typeof(obj) === 'function';
+  };
 
   if(Array.isArray(obj)){
     var resultingArray = [];
@@ -23,7 +15,7 @@ var stringifyJSON = function (obj) {
   if(Object.prototype.toString.call(obj) === "[object Object]"){
     var array = [];
     for (var key in obj){
-      if((typeof(obj[key]) === undefined) || (typeof(obj[key]) === 'function')){
+      if((typeof(obj[key]) === 'undefined') || (typeof(obj[key]) === 'function')){
         return '{}';
       }else{
         array.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
@@ -31,4 +23,11 @@ var stringifyJSON = function (obj) {
     }
     return '{' + array.join(',') + '}';
   }
+
+  if(typeof(obj) === 'string'){
+    return '"' + obj + '"';
+  }else if (!isUndefinedOrAFunction(obj)){
+    return String(obj); 
+  }
+
 };
