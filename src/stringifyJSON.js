@@ -15,9 +15,7 @@ var stringifyJSON = function (obj) {
   if(Object.prototype.toString.call(obj) === "[object Object]"){
     var array = [];
     for (var key in obj){
-      if((typeof(obj[key]) === 'undefined') || (typeof(obj[key]) === 'function')){
-        return '{}';
-      }else{
+      if(!isUndefinedOrAFunction(obj[key])){
         array.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
       }
     }
